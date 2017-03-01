@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include "file_operations.h"
-#include "graphics.h"
 #include "quad.h"
 #include <sys/time.h>
 #include <time.h>
@@ -16,8 +15,8 @@ int main(int argc, const char* argv[]) {
  // graphics is 1 or 0 meaning graphics on/off
 
 // check if the parameters in the command line are correct, otherwise error message with instructions.	
-  	if(argc != 7) {
-      printf("Please give in: N filename nsteps delta_t theta_max graphics.\n");
+  	if(argc != 8) {
+      printf("Please give in: N filename nsteps delta_t theta_max graphics n_threads.\n");
       return -1;
     }
  
@@ -50,6 +49,7 @@ int main(int argc, const char* argv[]) {
  	double delta_t = atof(argv[4]);
  	
    int graphics = atoi(argv[6]);
+	int nThreads = atoi(argv[7]);
   
  double *values =(double*)malloc(5*N*sizeof(double));
  read_doubles_from_file(atoi(argv[1])*5, values, argv[2]);
@@ -107,6 +107,8 @@ int main(int argc, const char* argv[]) {
    //elapsed_time_mass += (t3.tv_sec-t2.tv_sec)*1e6 + t3.tv_sec-t2.tv_sec;
 	// gettimeofday(&t1,0);        
  
+	      
+	#pragma omp parallel for num_threads(nThreads)
 	for(int i=0;i<N;i++){
 	      force_t * force = (force_t*)calloc(1,sizeof(force_t));
 	      force = getForce(&head, particles[i],theta_max,G,epsilon);
@@ -129,74 +131,7 @@ int main(int argc, const char* argv[]) {
    }
 	
 	
-   else if(graphics ==1) {
-      int L = 1;
-      int W = 1;
-      int windowWidth = 600;
-      int windowHeight = 600;
-      SetCAxes(0,1);
-      InitializeGraphics("",windowWidth,windowHeight);
-      double x, y, circleRadius;
-         
-        for(int t=0;t<nsteps;t++) {
-           
-    p_qtree * head=(p_qtree *) calloc(1,sizeof(p_qtree));
-    (*head).width = 1;
-    (*head).centerX = 0.5;
-    (*head).centerY = 0.5;
-    (*head).mass = 0.0;
-    (*head).massCenterX = 0.5;
-    (*head).massCenterY = 0.5;
-    
- 
   
-           
-           
-            for(int k=0;k<N;k++)
-   {
-       insert(&head, particles[k]);
-   }
-        
-  massification(&head);
-  
-           
-           
-           ClearScreen();           
-           for(int i=0;i<N;i++) {
-              x = particles[i].x_pos;
-              y = particles[i].y_pos;
-              circleRadius = 0.005;
-              DrawCircle(x, y, L, W, circleRadius, 0.1);          
-           }
-           Refresh();
-           //usleep(800);
-           
-
-           
-   for(int i=0;i<N;i++){
-      force_t * force = (force_t*)calloc(1,sizeof(force_t));
-      force = getForce(&head, particles[i],theta_max,G,epsilon);    
-      // printf("getForce worked\n"); 
-      //printf("outside force_x: %lf \n",(*force).x);
-      //printf("outside force_y: %lf \n",(*force).y);
-      double m_i = 1/particles[i].mass;
-      particles[i].vel_x += delta_t*(*force).x*m_i;
-      particles[i].vel_y += delta_t*(*force).y*m_i;
-      particles[i].x_pos += delta_t*particles[i].vel_x;
-      particles[i].y_pos += delta_t*particles[i].vel_y;  
-      free(force);
-   }
-           
-   
-   delete(&head);
-   //printf("Delete worked\n");
-   }
-   
-         
-    
-     FlushDisplay();
-     CloseDisplay();
-   } 
 
  i = 0;
  j = 0;  
