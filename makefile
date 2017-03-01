@@ -1,6 +1,6 @@
 CC = gcc -std=c99 
 LD = gcc -std=c99 
-CFLAGS = -O3 -Wall -Werror -lopenmp
+CFLAGS = -O3 -Wall -Werror -fopenmp
 LDFLAGS = -lm 
 RM = /bin/rm -f
 OBJS = main.o file_operations.o quad.o
