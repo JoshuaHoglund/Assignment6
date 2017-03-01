@@ -1,7 +1,7 @@
 CC = gcc -std=c99 
 LD = gcc -std=c99 
 CFLAGS = -O3 -Wall -Werror
-LDFLAGS = -lm 
+LDFLAGS = -lm -lopenmp
 RM = /bin/rm -f
 OBJS = main.o file_operations.o quad.o
 EXECUTABLE = galsim
