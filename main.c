@@ -5,6 +5,7 @@
 #include "quad.h"
 #include <sys/time.h>
 #include <time.h>
+#include <omp.h>
 
 int main(int argc, const char* argv[]) { 
  // read in N filename nsteps delta_t graphics
