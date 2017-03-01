@@ -110,7 +110,7 @@ int main(int argc, const char* argv[]) {
  
 	      
 	      
-#pragma omp parallel for num_threads(nThreads) schedule(dynamic, 250)
+#pragma omp parallel for num_threads(nThreads) schedule(dynamic, 10)
 	for(int i=0;i<N;i++){
 	      force_t * force = (force_t*)calloc(1,sizeof(force_t));
 	      force = getForce(&head, particles[i],theta_max,G,epsilon);
