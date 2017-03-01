@@ -1,7 +1,7 @@
 CC = gcc -std=c99 
 LD = gcc -std=c99 
-CFLAGS = -O3 -Wall -Werror -fopenmp
-LDFLAGS = -lm 
+CFLAGS = -O3 -Wall -Werror 
+LDFLAGS = -lm -fopenmp
 RM = /bin/rm -f
 OBJS = main.o file_operations.o quad.o
 EXECUTABLE = galsim
@@ -9,7 +9,7 @@ EXECUTABLE = galsim
 all:$(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJS)
-	$(LD) $(LDFLAGS) $(OBJS) -o $(EXECUTABLE) $(LDFLAGS)
+	$(LD) $(OBJS) -o $(EXECUTABLE) $(LDFLAGS)
 
 file_operations.o: file_operations.h file_operations.c
 	$(CC) $(CFLAGS) -c file_operations.c
