@@ -114,7 +114,7 @@ int main(int argc, const char* argv[]) {
 #pragma omp parallel for num_threads(nThreads) schedule(guided)
 	for(int i=0;i<N;i++){
 	      
-	      getForce(&head, particles[i],theta_max,G,epsilon, force[omp_get_thread_num()]);
+	      getForce(&head, particles[i],theta_max,G,epsilon, &force[omp_get_thread_num()]);
 	      double m_i = 1/particles[i].mass;
 	      particles[i].vel_x += delta_t*force[omp_get_thread_num()].x*m_i;
 	      particles[i].vel_y += delta_t*force[omp_get_thread_num()].y*m_i;
@@ -127,8 +127,8 @@ int main(int argc, const char* argv[]) {
 			printf("force[i].y: %lf \n",force[i].y);
 			sleep(5);
 		}
-	      (*force).x = 0;
-	      (*force).y = 0;
+	      force[omp_get_thread_num()].x = 0;
+	      force[omp_get_thread_num()].y = 0;
 	   }
 	      
 	      
