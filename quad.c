@@ -35,6 +35,8 @@ void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double e
 			printf("calc_x: %lf \n", -G*p.mass*(**node).mass*r_x*r3);
 			printf("prev force_x: %lf \n",old);
 			printf("summm: %lf \n",old-G*p.mass*(**node).mass*r_x*r3);
+			printf("p.y_pos: %lf \n",p.y_pos);
+			printf("(**node).massCenterY: %lf\n",(**node).massCenterY);
 			sleep(1000);
 		}
 	}
