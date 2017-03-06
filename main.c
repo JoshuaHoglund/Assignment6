@@ -108,24 +108,22 @@ int main(int argc, const char* argv[]) {
    //elapsed_time_mass += (t3.tv_sec-t2.tv_sec)*1e6 + t3.tv_sec-t2.tv_sec;
 	// gettimeofday(&t1,0);        
  
-	force_t * force = (force_t*)calloc(N,sizeof(force_t));      
+	force_t * force = (force_t*)calloc(1,sizeof(force_t));      
 	      
 #pragma omp parallel for num_threads(nThreads) schedule(guided)
 	for(int i=0;i<N;i++){
 	      
-	      force[i] = *getForce(&head, particles[i],theta_max,G,epsilon);
-	      
-	      
-	   }
-	      
-	      for (int i=0;i<N;i++) {
-		      double m_i = 1/particles[i].mass;
+	      getForce(&head, particles[i],theta_max,G,epsilon, force);
+	      double m_i = 1/particles[i].mass;
 	      particles[i].vel_x += delta_t*force[i].x*m_i;
 	      particles[i].vel_y += delta_t*force[i].y*m_i;
 	      particles[i].x_pos += delta_t*particles[i].vel_x;
-	      particles[i].y_pos += delta_t*particles[i].vel_y;  
-	      }
-        free(force);
+	      particles[i].y_pos += delta_t*particles[i].vel_y;
+	      (*force).x = 0;
+	      (*force).y = 0;
+	   }
+	      
+	      
    
    delete(&head);
  //elapsed_time_nsec += (t1.tv_sec-t0.tv_sec)*1e9 + t1.tv_nsec-t0.tv_nsec;
