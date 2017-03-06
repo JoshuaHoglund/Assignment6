@@ -120,7 +120,7 @@ int main(int argc, const char* argv[]) {
 	      particles[i].x_pos += delta_t*particles[i].vel_x;
 	      particles[i].y_pos += delta_t*particles[i].vel_y;
 		if(isnan(particles[i].y_pos)) {
-			printf("22222222222222222222222222222222222222222222222 \n\n\n);
+			printf("22222222222222222222222222222222222222222222222 \n\n\n");
 			       printf("m_i: %lf\n",m_i);
 		}
 	      (*force).x = 0;
