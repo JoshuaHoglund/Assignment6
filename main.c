@@ -127,6 +127,8 @@ int main(int argc, const char* argv[]) {
 			printf("force[i].y: %lf \n",force[i].y);
 			sleep(5);
 		}
+		printf("force_x: %lf \n", (*force).x);
+		printf("force_y: %lf \n", (*force).y);
 	      force[omp_get_thread_num()].x = 0;
 	      force[omp_get_thread_num()].y = 0;
 	   }
