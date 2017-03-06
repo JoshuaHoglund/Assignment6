@@ -122,6 +122,8 @@ int main(int argc, const char* argv[]) {
 		if(isnan(particles[i].y_pos)) {
 			printf("22222222222222222222222222222222222222222222222 \n\n\n");
 			       printf("m_i: %lf\n",m_i);
+			printf("vel_y: %lf \n",particles[i].vel_y);
+			printf("force[i].y: %lf \n",force[i].y);
 		}
 	      (*force).x = 0;
 	      (*force).y = 0;
