@@ -25,7 +25,7 @@ void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double e
 		(*force).x += -G*p.mass*(**node).mass*r_x*r3;
 		(*force).y += -G*p.mass*(**node).mass*r_y*r3;
 		
-		printf("inside force_x: %lf \n", (*force).x);
+		/*printf("inside force_x: %lf \n", (*force).x);
 		printf("inside force_y: %lf \n", (*force).y);
 		if(isnan((*force).x) || isnan((*force).y)) {
 			printf("r_x: %lf \n",r_x);
@@ -36,7 +36,7 @@ void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double e
 			printf("summm: %lf \n",old-G*p.mass*(**node).mass*r_x*r3);
 			printf("p.y_pos: %lf \n",p.y_pos);
 			printf("(**node).massCenterY: %lf\n",(**node).massCenterY);
-			sleep(1000);
+			sleep(1000);*/
 		}
 	}
 	
@@ -47,8 +47,8 @@ void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double e
 		getForce((&(**node).ne),p, thetamax, G, eps, force);
 		getForce((&(**node).sw),p, thetamax, G, eps, force);
 		getForce((&(**node).se),p, thetamax, G, eps, force);
-		printf("outside force_x: %lf \n", (*force).x);
-		printf("outside force_y: %lf \n", (*force).y);
+		//printf("outside force_x: %lf \n", (*force).x);
+		//printf("outside force_y: %lf \n", (*force).y);
 	}
 	
 	else if(p.x_pos!=(**node).massCenterX) {
