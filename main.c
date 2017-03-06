@@ -109,15 +109,15 @@ int main(int argc, const char* argv[]) {
    //elapsed_time_mass += (t3.tv_sec-t2.tv_sec)*1e6 + t3.tv_sec-t2.tv_sec;
 	// gettimeofday(&t1,0);        
  
-	force_t * force = (force_t*)calloc(1,sizeof(force_t));      
+	force_t * force = (force_t*)calloc(1,num_thread*sizeof(force_t));      
 	      
 #pragma omp parallel for num_threads(nThreads) schedule(guided)
 	for(int i=0;i<N;i++){
 	      
-	      getForce(&head, particles[i],theta_max,G,epsilon, force);
+	      getForce(&head, particles[i],theta_max,G,epsilon, force[omp_get_thread_num()]);
 	      double m_i = 1/particles[i].mass;
-	      particles[i].vel_x += delta_t*(*force).x*m_i;
-	      particles[i].vel_y += delta_t*(*force).y*m_i;
+	      particles[i].vel_x += delta_t*force[omp_get_thread_num()].x*m_i;
+	      particles[i].vel_y += delta_t*force[omp_get_thread_num()].y*m_i;
 	      particles[i].x_pos += delta_t*particles[i].vel_x;
 	      particles[i].y_pos += delta_t*particles[i].vel_y;
 		if(isnan(particles[i].y_pos)) {
