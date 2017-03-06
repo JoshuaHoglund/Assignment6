@@ -115,8 +115,8 @@ int main(int argc, const char* argv[]) {
 	      
 	      getForce(&head, particles[i],theta_max,G,epsilon, force);
 	      double m_i = 1/particles[i].mass;
-	      particles[i].vel_x += delta_t*force[i].x*m_i;
-	      particles[i].vel_y += delta_t*force[i].y*m_i;
+	      particles[i].vel_x += delta_t*(*force).x*m_i;
+	      particles[i].vel_y += delta_t*(*force).y*m_i;
 	      particles[i].x_pos += delta_t*particles[i].vel_x;
 	      particles[i].y_pos += delta_t*particles[i].vel_y;
 		if(isnan(particles[i].y_pos)) {
