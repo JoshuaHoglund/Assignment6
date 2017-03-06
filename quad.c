@@ -14,7 +14,6 @@ double dist(double x1, double x2, double y1, double y2) {
 void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double eps, force_t* force) {
 	double theta = (**node).width/dist(p.x_pos, (**node).centerX, p.y_pos, (**node).centerY);
 	//If (**node).nw==NULL all other children are also NULL
-	printf("(**node).massCenterY: %lf\n",(**node).massCenterY);
 	
 	if ((**node).nw==NULL && p.x_pos!=(**node).massCenterX) {
 		double r_x = p.x_pos - (**node).massCenterX;
