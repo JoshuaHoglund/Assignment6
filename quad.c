@@ -23,8 +23,8 @@ void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double e
 		double r3=1/((abs_r+eps)*(abs_r+eps)*(abs_r+eps));
 		(*force).x += -G*p.mass*(**node).mass*r_x*r3;
 		(*force).y += -G*p.mass*(**node).mass*r_y*r3;
-		printf("inside force_x: %lf \n", force.x);
-		printf("inside force_y: %lf \n", force.y);
+		printf("inside force_x: %lf \n", (*force).x);
+		printf("inside force_y: %lf \n", (*force).y);
 	}
 	
 	
@@ -34,8 +34,8 @@ void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double e
 		getForce((&(**node).ne),p, thetamax, G, eps, force);
 		getForce((&(**node).sw),p, thetamax, G, eps, force);
 		getForce((&(**node).se),p, thetamax, G, eps, force);
-		printf("outside force_x: %lf \n", force.x);
-		printf("outside force_y: %lf \n", force.y);
+		printf("outside force_x: %lf \n", (*force).x);
+		printf("outside force_y: %lf \n", (*force).y);
 	}
 	
 	else if(p.x_pos!=(**node).massCenterX) {
