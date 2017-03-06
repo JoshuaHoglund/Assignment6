@@ -21,7 +21,7 @@ void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double e
 		
 		double abs_r = sqrt(r_x*r_x + r_y*r_y);
 		double r3=1/((abs_r+eps)*(abs_r+eps)*(abs_r+eps));
-		double old = (*force).x;
+		//double old = (*force).x;
 		(*force).x += -G*p.mass*(**node).mass*r_x*r3;
 		(*force).y += -G*p.mass*(**node).mass*r_y*r3;
 		
@@ -36,8 +36,8 @@ void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double e
 			printf("summm: %lf \n",old-G*p.mass*(**node).mass*r_x*r3);
 			printf("p.y_pos: %lf \n",p.y_pos);
 			printf("(**node).massCenterY: %lf\n",(**node).massCenterY);
-			sleep(1000);*/
-		}
+			sleep(1000);
+		}*/
 	}
 	
 	
