@@ -28,6 +28,7 @@ void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double e
 		
 		printf("inside force_x: %lf \n", (*force).x);
 		printf("inside force_y: %lf \n", (*force).y);
+		printf("(**node).massCenterY: %lf\n",(**node).massCenterY);
 		if(isnan((*force).x)) {
 			printf("r_x: %lf \n",r_x);
 			printf("r_y: %lf \n",r_y);
