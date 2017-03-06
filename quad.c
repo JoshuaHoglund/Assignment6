@@ -10,63 +10,39 @@ double dist(double x1, double x2, double y1, double y2) {
 	return d;
 }
 
-force_t* getForce(p_qtree ** node, particle_t p, double thetamax, double G, double eps) {
+void getForce(p_qtree ** node, particle_t p, double thetamax, double G, double eps, force_t* force) {
 	double theta = (**node).width/dist(p.x_pos, (**node).centerX, p.y_pos, (**node).centerY);
 	//If (**node).nw==NULL all other children are also NULL
 	
 	
 	if ((**node).nw==NULL && p.x_pos!=(**node).massCenterX) {
-		force_t* force = calloc(1,sizeof(force_t));
 		double r_x = p.x_pos - (**node).massCenterX;
 		double r_y = p.y_pos - (**node).massCenterY;
 		
 		double abs_r = sqrt(r_x*r_x + r_y*r_y);
 		double r3=1/((abs_r+eps)*(abs_r+eps)*(abs_r+eps));
-		(*force).x = -G*p.mass*(**node).mass*r_x*r3;
-		(*force).y = -G*p.mass*(**node).mass*r_y*r3;
-		/*if (sqrt((*force).x*(*force).x)<0.001) {
-			(*force).x = 0;
-			(*force).y = 0;
-		}*/
-		return force;
+		(*force).x += -G*p.mass*(**node).mass*r_x*r3;
+		(*force).y += -G*p.mass*(**node).mass*r_y*r3;
 	}
 	
 	
 	
 	else if (theta>thetamax && p.x_pos!=(**node).massCenterX) {
-		force_t * force = calloc(1,sizeof(force_t));
-		force_t * nwforce = getForce((&(**node).nw),p, thetamax, G, eps);
-		force_t * neforce = getForce((&(**node).ne),p, thetamax, G, eps);
-		force_t * swforce = getForce((&(**node).sw),p, thetamax, G, eps);
-		force_t * seforce = getForce((&(**node).se),p, thetamax, G, eps);
-		
-		(*force).x = (*nwforce).x + (*neforce).x + (*swforce).x + (*seforce).x;
-		(*force).y = (*nwforce).y + (*neforce).y + (*swforce).y + (*seforce).y;
-		free(nwforce);
-		free(neforce);
-		free(swforce);
-		free(seforce);
-		
-		return force;
+		getForce((&(**node).nw),p, thetamax, G, eps, force);
+		getForce((&(**node).ne),p, thetamax, G, eps, force);
+		getForce((&(**node).sw),p, thetamax, G, eps, force);
+		getForce((&(**node).se),p, thetamax, G, eps, force);
 	}
 	
 	else if(p.x_pos!=(**node).massCenterX) {
-		force_t * force = calloc(1,sizeof(force));
 		double r_x = p.x_pos - (**node).massCenterX;
 		double r_y = p.y_pos - (**node).massCenterY;
 		double abs_r = sqrt(r_x*r_x + r_y*r_y);
 		double r3=1/((abs_r+eps)*(abs_r+eps)*(abs_r+eps));
 		(*force).x += -G*p.mass*(**node).mass*r_x*r3;
 		(*force).y += -G*p.mass*(**node).mass*r_y*r3;
-		return force;
 	}
 	
-	
-	
-	else {
-		force_t * force = calloc(1,sizeof(force_t));
-		return force;
-	}
 }
 
 void printTree(p_qtree ** node) {
