@@ -6,6 +6,7 @@
 #include <sys/time.h>
 #include <time.h>
 #include <omp.h>
+#include <unistd.h>
 
 int main(int argc, const char* argv[]) { 
  // read in N filename nsteps delta_t graphics
@@ -124,6 +125,7 @@ int main(int argc, const char* argv[]) {
 			       printf("m_i: %lf\n",m_i);
 			printf("vel_y: %lf \n",particles[i].vel_y);
 			printf("force[i].y: %lf \n",force[i].y);
+			sleep(5);
 		}
 	      (*force).x = 0;
 	      (*force).y = 0;
