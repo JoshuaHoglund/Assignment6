@@ -109,7 +109,7 @@ int main(int argc, const char* argv[]) {
    //elapsed_time_mass += (t3.tv_sec-t2.tv_sec)*1e6 + t3.tv_sec-t2.tv_sec;
 	// gettimeofday(&t1,0);        
  
-	force_t * force = (force_t*)calloc(1,num_thread*sizeof(force_t));      
+	force_t * force = (force_t*)calloc(1,num_threads*sizeof(force_t));      
 	      
 #pragma omp parallel for num_threads(nThreads) schedule(guided)
 	for(int i=0;i<N;i++){
